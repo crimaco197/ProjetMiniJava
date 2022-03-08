@@ -27,6 +27,8 @@ let binop out = function
      fprintf out ">"
   | OpAnd ->
      fprintf out "&&"
+  | OpEgal  ->
+       fprintf out "=="
 
 (** [expr out e], [expr0 out e], ..., [expr6 out e] print the expression [e]
     on the output channel [out]. [expr] is a synonym for [expr6].
@@ -133,6 +135,10 @@ let rec instr out = function
         instr i1
         nl
         instr i2
+  | If (c, i1) ->
+        fprintf out "if (%a) %a"
+          expr c
+          instr i1
   | IWhile (c, i) ->
       fprintf out "while (%a) %a"
         expr c

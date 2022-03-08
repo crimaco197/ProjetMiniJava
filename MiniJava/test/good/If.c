@@ -1,8 +1,13 @@
 /*
-class Factorial {
+class If {
   public static void main(String[] a) {
     {
-      System.out.println(true);
+      if (2 < 3) {
+        System.out.println(2);
+      }
+      System.out.println(2);
+      System.out.println(2);
+      System.out.println(2);
     }
   }
 }
@@ -17,7 +22,12 @@ tgc_t gc;
 int main(int argc, char *argv[]) {
   tgc_start(&gc, &argc);
   {
-    printf("%d\n", 1);
+    if ((2 < 3)) {
+      printf("%d\n", 2);
+    }
+    printf("%d\n", 2);
+    printf("%d\n", 2);
+    printf("%d\n", 2);
   }
   tgc_stop(&gc);
 

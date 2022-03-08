@@ -137,6 +137,12 @@ and typecheck_expression (cenv : class_env) (venv : variable_env) (vinit : S.t)
       in
       typecheck_expression_expecting cenv venv vinit instanceof expected e;
       returned
+  (** TERMINAR - agregar un else para que retorne el tipo bool*)
+
+  | EBinOp (opEgal, e1, e2) ->
+      let t1 = typecheck_expression cenv venv vinit instanceof e1 in
+      typecheck_expression_expecting cenv venv vinit instanceof t1 e2;
+      TypBool
 
   | EBinOp (op, e1, e2) ->
       let expected, returned =
@@ -145,8 +151,8 @@ and typecheck_expression (cenv : class_env) (venv : variable_env) (vinit : S.t)
         | OpSub
         | OpMul -> TypInt, TypInt
         | OpLt  -> TypInt, TypBool
+        | OpGt -> TypInt, TypBool
         | OpAnd -> TypBool, TypBool
-        | OpGt -> TypInt, TypInt
       in
       typecheck_expression_expecting cenv venv vinit instanceof expected e1;
       typecheck_expression_expecting cenv venv vinit instanceof expected e2;
@@ -213,6 +219,13 @@ let rec typecheck_instruction (cenv : class_env) (venv : variable_env) (vinit : 
       typecheck_instruction cenv venv vinit instanceof ielse
     in
     S.inter vinit1 vinit2
+
+  | If (cond, ithen) ->
+      typecheck_expression_expecting cenv venv vinit instanceof TypBool cond;
+      let vinit1 =
+        typecheck_instruction cenv venv vinit instanceof ithen
+      in
+      vinit1
 
   | IWhile (cond, ibody) ->
     typecheck_expression_expecting cenv venv vinit instanceof TypBool cond;

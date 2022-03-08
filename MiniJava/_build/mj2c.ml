@@ -318,8 +318,9 @@ let binop2c
   | OpSub -> fprintf out "-"
   | OpMul -> fprintf out "*"
   | OpLt  -> fprintf out "<"
-  | OpAnd -> fprintf out "&&"
   | OpGt -> fprintf out ">"
+  | OpAnd -> fprintf out "&&"
+  | OpEgal -> fprintf out "=="
 
 (** [type2c out typ] transpiles the type [typ] to C on the output channel [out]. *)
 let type2c
@@ -500,7 +501,10 @@ let instr2c
          instr2c i1
          nl
          instr2c i2
-
+    | If (c, i1) ->
+           fprintf out "if (%a) %a"
+             (expr2c method_name class_info) c
+             instr2c i1
     | IWhile (c, i) ->
        fprintf out "while (%a) %a"
          (expr2c method_name class_info) c

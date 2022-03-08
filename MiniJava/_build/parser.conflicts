@@ -1,0 +1,33 @@
+
+** Conflict (shift/reduce) in state 84.
+** Token involved: ELSE
+** This state is reached from program after reading:
+
+main_class CLASS IDENT option(preceded(EXTENDS,IDENT)) LBRACE list(pair(typ,terminated(IDENT,SEMICOLON))) PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE IF LPAREN expression RPAREN IF LPAREN expression RPAREN instruction
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+program 
+main_class defs EOF 
+           list(clas) 
+           clas list(clas) 
+           CLASS IDENT option(preceded(EXTENDS,IDENT)) LBRACE list(pair(typ,terminated(IDENT,SEMICOLON))) list(metho) RBRACE 
+                                                                                                          metho list(metho) 
+                                                                                                          PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE declarations_and_statements RETURN expression SEMICOLON RBRACE 
+                                                                                                                                                                                                        list(instruction) 
+                                                                                                                                                                                                        instruction list(instruction) 
+                                                                                                                                                                                                        (?)
+
+** In state 84, looking ahead at ELSE, shifting is permitted
+** because of the following sub-derivation:
+
+IF LPAREN expression RPAREN instruction ELSE instruction 
+                            IF LPAREN expression RPAREN instruction . ELSE instruction 
+
+** In state 84, looking ahead at ELSE, reducing production
+** instruction -> IF LPAREN expression RPAREN instruction
+** is permitted because of the following sub-derivation:
+
+IF LPAREN expression RPAREN instruction ELSE instruction // lookahead token appears
+                            IF LPAREN expression RPAREN instruction . 

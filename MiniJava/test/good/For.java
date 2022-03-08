@@ -1,7 +1,9 @@
-class Factorial {
+class For {
     public static void main(String[] a) {
         {
-            System.out.println(2<3);
+            for (int i = 0; i < 2; i++) {
+                System.out.println(i>3);
+            }
         }
     }
 }

@@ -33,6 +33,7 @@ type token =
   | EXTENDS
   | EOF
   | ELSE
+  | EGAL
   | DOT
   | COMMA
   | CLASS

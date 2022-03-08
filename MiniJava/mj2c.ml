@@ -501,7 +501,10 @@ let instr2c
          instr2c i1
          nl
          instr2c i2
-
+    | If (c, i1) ->
+           fprintf out "if (%a) %a"
+             (expr2c method_name class_info) c
+             instr2c i1
     | IWhile (c, i) ->
        fprintf out "while (%a) %a"
          (expr2c method_name class_info) c

@@ -54,6 +54,8 @@ let print_token show_loc out = function
      fprintf out "LT"
   | GT ->
      fprintf out "GT"
+  | EGAL ->
+     fprintf out "EGAL"
   | AND ->
      fprintf out "AND"
   | COMMA ->
