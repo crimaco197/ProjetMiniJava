@@ -38,6 +38,7 @@ and instruction =
   | ISyso of expression
   | ISetVar of identifier * expression
   | IArraySet of identifier * expression * expression
+  | IExp of expression
 
 and typ =
   | TypInt
@@ -63,5 +64,6 @@ and program = {
     name: identifier;
     defs: (identifier * clas) list;
     main_args: identifier;
+(*    locals_main: (identifier * typ) list;*)
     main: instruction
   }

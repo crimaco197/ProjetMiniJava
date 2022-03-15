@@ -175,6 +175,9 @@ and print_expression_list prefix out l =
 let rec print_instruction prefix out i =
   let prefix' = prefix ^ String.make indentation ' ' in
   match i with
+  | IExp e ->
+    fprintf out "IExp\n%a"
+           (print_expression prefix') e
   | ISyso e ->
      fprintf out "ISyso\n%s%s%a"
        prefix'

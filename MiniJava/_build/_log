@@ -30,9 +30,9 @@ menhir --explain --dump --ocamlc '/usr/bin/ocamlc.opt -I /usr/lib/ocaml' --infer
 # Target: lmj2mj.mli.depends, tags: { extension:mli, file:lmj2mj.mli, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules lmj2mj.mli > lmj2mj.mli.depends # cached
 # Target: MJ.mli.depends, tags: { extension:mli, file:MJ.mli, ocaml, ocamldep, quiet }
-/usr/bin/ocamldep.opt -modules MJ.mli > MJ.mli.depends
+/usr/bin/ocamldep.opt -modules MJ.mli > MJ.mli.depends # cached
 # Target: MJ.cmi, tags: { byte, compile, extension:mli, file:MJ.mli, interf, ocaml, quiet }
-/usr/bin/ocamlc.opt -c -I /usr/lib/ocaml -o MJ.cmi MJ.mli
+/usr/bin/ocamlc.opt -c -I /usr/lib/ocaml -o MJ.cmi MJ.mli # cached
 # Target: lmj2mj.cmi, tags: { byte, compile, extension:mli, file:lmj2mj.mli, interf, ocaml, quiet }
 /usr/bin/ocamlc.opt -c -I /usr/lib/ocaml -o lmj2mj.cmi lmj2mj.mli # cached
 # Target: mj2c.mli.depends, tags: { extension:mli, file:mj2c.mli, ocaml, ocamldep, quiet }
@@ -66,9 +66,11 @@ menhir --explain --dump --ocamlc '/usr/bin/ocamlc.opt -I /usr/lib/ocaml' --infer
 # Target: location.cmx, tags: { compile, extension:cmx, extension:ml, file:location.cmx, file:location.ml, implem, native, ocaml, quiet }
 /usr/bin/ocamlopt.opt -c -I /usr/lib/ocaml -o location.cmx location.ml # cached
 # Target: parser.ml.depends, tags: { extension:ml, file:parser.ml, ocaml, ocamldep, quiet }
-/usr/bin/ocamldep.opt -modules parser.ml > parser.ml.depends
+/usr/bin/ocamldep.opt -modules parser.ml > parser.ml.depends # cached
 # Target: parser.cmx, tags: { compile, extension:cmx, extension:ml, file:parser.cmx, file:parser.ml, implem, native, ocaml, quiet }
-/usr/bin/ocamlopt.opt -c -I /usr/lib/ocaml -o parser.cmx parser.ml
+/usr/bin/ocamlopt.opt -c -I /usr/lib/ocaml -o parser.cmx parser.ml # cached
+# Target: lexer.cmx, tags: { compile, extension:cmx, extension:ml, file:lexer.cmx, file:lexer.ml, implem, native, ocaml, quiet }
+/usr/bin/ocamlopt.opt -c -I /usr/lib/ocaml -o lexer.cmx lexer.ml # cached
 # Target: lmj2mj.ml.depends, tags: { extension:ml, file:lmj2mj.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules lmj2mj.ml > lmj2mj.ml.depends # cached
 # Target: lmj2mj.cmx, tags: { compile, extension:cmx, extension:ml, file:lmj2mj.cmx, file:lmj2mj.ml, implem, native, ocaml, quiet }
@@ -111,16 +113,14 @@ menhir --explain --dump --ocamlc '/usr/bin/ocamlc.opt -I /usr/lib/ocaml' --infer
 /usr/bin/ocamlopt.opt -c -I /usr/lib/ocaml -o print_ast.cmx print_ast.ml # cached
 # Target: print_tokens.ml.depends, tags: { extension:ml, file:print_tokens.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules print_tokens.ml > print_tokens.ml.depends # cached
-# Target: lexer.cmx, tags: { compile, extension:cmx, extension:ml, file:lexer.cmx, file:lexer.ml, implem, native, ocaml, quiet }
-/usr/bin/ocamlopt.opt -c -I /usr/lib/ocaml -o lexer.cmx lexer.ml
+# Target: print_tokens.cmx, tags: { compile, extension:cmx, extension:ml, file:print_tokens.cmx, file:print_tokens.ml, implem, native, ocaml, quiet }
+/usr/bin/ocamlopt.opt -c -I /usr/lib/ocaml -o print_tokens.cmx print_tokens.ml # cached
 # Target: typechecking.ml.depends, tags: { extension:ml, file:typechecking.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules typechecking.ml > typechecking.ml.depends # cached
 # Target: typechecking.cmx, tags: { compile, extension:cmx, extension:ml, file:typechecking.cmx, file:typechecking.ml, implem, native, ocaml, quiet }
 /usr/bin/ocamlopt.opt -c -I /usr/lib/ocaml -o typechecking.cmx typechecking.ml # cached
-# Target: print_tokens.cmx, tags: { compile, extension:cmx, extension:ml, file:print_tokens.cmx, file:print_tokens.ml, implem, native, ocaml, quiet }
-/usr/bin/ocamlopt.opt -c -I /usr/lib/ocaml -o print_tokens.cmx print_tokens.ml
 # Target: main.cmx, tags: { compile, extension:cmx, extension:ml, file:main.cmx, file:main.ml, implem, native, ocaml, quiet }
-/usr/bin/ocamlopt.opt -c -I /usr/lib/ocaml -o main.cmx main.ml
+/usr/bin/ocamlopt.opt -c -I /usr/lib/ocaml -o main.cmx main.ml # cached
 # Target: main.native, tags: { dont_link_with, extension:native, file:main.native, link, native, ocaml, program, quiet }
-/usr/bin/ocamlopt.opt -I /usr/lib/ocaml /usr/lib/ocaml/unix.cmxa error.cmx location.cmx parser.cmx lexer.cmx lmj2mj.cmx print.cmx stringSet.cmx stringMap.cmx mj2c.cmx printMJ.cmx print_ast.cmx print_tokens.cmx typechecking.cmx main.cmx -o main.native
+/usr/bin/ocamlopt.opt -I /usr/lib/ocaml /usr/lib/ocaml/unix.cmxa error.cmx location.cmx parser.cmx lexer.cmx lmj2mj.cmx print.cmx stringSet.cmx stringMap.cmx mj2c.cmx printMJ.cmx print_ast.cmx print_tokens.cmx typechecking.cmx main.cmx -o main.native # cached
 # Compilation successful.

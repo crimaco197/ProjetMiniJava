@@ -1,4 +1,39 @@
 
+** Conflict (shift/reduce) in state 128.
+** Token involved: LBRACKET
+** This state is reached from program after reading:
+
+main_class CLASS IDENT option(preceded(EXTENDS,IDENT)) LBRACE list(pair(typ,terminated(IDENT,SEMICOLON))) PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE IDENT
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+program 
+main_class defs EOF 
+           list(clas) 
+           clas list(clas) 
+           CLASS IDENT option(preceded(EXTENDS,IDENT)) LBRACE list(pair(typ,terminated(IDENT,SEMICOLON))) list(metho) RBRACE 
+                                                                                                          metho list(metho) 
+                                                                                                          PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE declarations_and_statements RETURN expression SEMICOLON RBRACE 
+                                                                                                                                                                                                        list(instruction) 
+                                                                                                                                                                                                        instruction list(instruction) 
+                                                                                                                                                                                                        (?)
+
+** In state 128, looking ahead at LBRACKET, shifting is permitted
+** because of the following sub-derivation:
+
+IDENT . LBRACKET expression RBRACKET ASSIGN expression SEMICOLON 
+
+** In state 128, looking ahead at LBRACKET, reducing production
+** raw_expression -> IDENT
+** is permitted because of the following sub-derivation:
+
+expression SEMICOLON 
+raw_expression 
+expression LBRACKET expression RBRACKET // lookahead token appears
+raw_expression // lookahead token is inherited
+IDENT . 
+
 ** Conflict (shift/reduce) in state 84.
 ** Token involved: ELSE
 ** This state is reached from program after reading:
@@ -31,3 +66,32 @@ IF LPAREN expression RPAREN instruction ELSE instruction
 
 IF LPAREN expression RPAREN instruction ELSE instruction // lookahead token appears
                             IF LPAREN expression RPAREN instruction . 
+
+** Conflict (shift/reduce) in state 74.
+** Token involved: LBRACKET
+** This state is reached from program after reading:
+
+CLASS IDENT LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET IDENT RPAREN LBRACE IDENT
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+program 
+main_class defs EOF 
+CLASS IDENT LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET IDENT RPAREN LBRACE instruction RBRACE RBRACE 
+                                                                                               (?)
+
+** In state 74, looking ahead at LBRACKET, shifting is permitted
+** because of the following sub-derivation:
+
+IDENT . LBRACKET expression RBRACKET ASSIGN expression SEMICOLON 
+
+** In state 74, looking ahead at LBRACKET, reducing production
+** raw_expression -> IDENT
+** is permitted because of the following sub-derivation:
+
+expression SEMICOLON 
+raw_expression 
+expression LBRACKET expression RBRACKET // lookahead token appears
+raw_expression // lookahead token is inherited
+IDENT . 

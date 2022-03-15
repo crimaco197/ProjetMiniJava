@@ -151,6 +151,10 @@ let rec instr out = function
      fprintf out "System.out.println(%a);"
        expr e
 
+  | IExp e ->
+     fprintf out "%a;"
+            expr e
+
 (** [typ out t] prints the type [t] on the output channel [out]. *)
 let typ out = function
   | TypInt ->

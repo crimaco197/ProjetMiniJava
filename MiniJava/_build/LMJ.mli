@@ -46,6 +46,7 @@ and instruction =
   | ISyso of expression (** [ISyso e] represents the instruction [System.out.println(e);]. *)
   | ISetVar of identifier * expression (** [ISetVar (id, e)] represents the instruction [id = e;]. *)
   | IArraySet of identifier * expression * expression (** [IArraySet (id, e1, e2)] represents the instruction [id[e1] = e2;]. *)
+  | IExp of expression
 
 and typ =
   | TypInt (** Type [int]. *)
@@ -71,6 +72,7 @@ and program = {
   name: identifier; (** The name of the main class. *)
   defs: (identifier * clas) list; (** The names and definitions of the other classes. *)
   main_args: identifier; (** The name of the parameter of the main method in the main class. *)
+(*  locals_main: (identifier * typ) list; (** The names of the local variables with their types (declared at the beginning of the method). *)*)
   main: instruction (** In MiniJava the main has only one instruction (but you can use
                         a block if you want more than one). *)
 }

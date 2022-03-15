@@ -22,6 +22,7 @@ and translate_instruction = function
 | LMJ.ISyso e -> MJ.ISyso (translate_expression e)
 | LMJ.ISetVar (id, e) -> MJ.ISetVar (Location.content id, translate_expression e)
 | LMJ.IArraySet (a, e1, e2) -> MJ.IArraySet (Location.content a, translate_expression e1, translate_expression e2)
+| LMJ.IExp e -> MJ.IExp (translate_expression e)
 
 let translate_typ = function
 | LMJ.TypInt -> MJ.TypInt
@@ -58,5 +59,6 @@ let translate_program p =
     MJ.name = Location.content p.LMJ.name;
     MJ.defs = translate_bindings translate_clas p.LMJ.defs;
     MJ.main = translate_instruction p.LMJ.main;
+(*    MJ.locals_main = translate_bindings translate_typ p.LMJ.locals_main;*)
     MJ.main_args = Location.content p.LMJ.main_args
   }

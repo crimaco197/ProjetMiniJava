@@ -518,6 +518,10 @@ let instr2c
     | ISyso e ->
        fprintf out "printf(\"%%d\\n\", %a);"
          (expr2c method_name class_info) e
+
+    | IExp e ->
+       fprintf out "%a;"
+                (expr2c method_name class_info) e
   in
   instr2c out ins
 

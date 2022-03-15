@@ -235,6 +235,8 @@ let rec typecheck_instruction (cenv : class_env) (venv : variable_env) (vinit : 
      typecheck_expression_expecting cenv venv vinit instanceof TypInt e;
      vinit
 
+  | IExp e ->
+    vinit
 (** [occurences x bindings] returns the elements in [bindings] that have [x] has identifier. *)
 let occurrences (x : string) (bindings : (identifier * 'a) list) : identifier list =
   List.map fst (List.filter (fun (id, _) -> x = Location.content id) bindings)

@@ -5,8 +5,8 @@ State 0:
 program' -> . program [ # ]
 ## Transitions:
 -- On CLASS shift to state 1
--- On program shift to state 96
--- On main_class shift to state 97
+-- On program shift to state 98
+-- On main_class shift to state 99
 ## Reductions:
 
 State 1:
@@ -133,19 +133,27 @@ State 14:
 main_class -> CLASS IDENT LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET IDENT RPAREN LBRACE . instruction RBRACE RBRACE [ EOF CLASS ]
 ## Transitions:
 -- On WHILE shift to state 15
+-- On THIS shift to state 17
 -- On SYSO shift to state 64
+-- On NOT shift to state 18
+-- On NEW shift to state 19
+-- On LPAREN shift to state 22
 -- On LBRACE shift to state 69
+-- On INT_CONST shift to state 23
 -- On IF shift to state 70
 -- On IDENT shift to state 74
--- On instruction shift to state 93
--- On block shift to state 87
+-- On BOOL_CONST shift to state 25
+-- On raw_expression shift to state 26
+-- On instruction shift to state 95
+-- On expression shift to state 87
+-- On block shift to state 89
 ## Reductions:
 
 State 15:
 ## Known stack suffix:
 ## WHILE
 ## LR(1) items:
-instruction -> WHILE . LPAREN expression RPAREN instruction [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> WHILE . LPAREN expression RPAREN instruction [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 -- On LPAREN shift to state 16
 ## Reductions:
@@ -154,7 +162,7 @@ State 16:
 ## Known stack suffix:
 ## WHILE LPAREN
 ## LR(1) items:
-instruction -> WHILE LPAREN . expression RPAREN instruction [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> WHILE LPAREN . expression RPAREN instruction [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 -- On THIS shift to state 17
 -- On NOT shift to state 18
@@ -902,7 +910,7 @@ State 62:
 ## Known stack suffix:
 ## WHILE LPAREN expression
 ## LR(1) items:
-instruction -> WHILE LPAREN expression . RPAREN instruction [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> WHILE LPAREN expression . RPAREN instruction [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 raw_expression -> expression . PLUS expression [ TIMES RPAREN PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
 raw_expression -> expression . MINUS expression [ TIMES RPAREN PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
 raw_expression -> expression . TIMES expression [ TIMES RPAREN PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
@@ -930,22 +938,30 @@ State 63:
 ## Known stack suffix:
 ## WHILE LPAREN expression RPAREN
 ## LR(1) items:
-instruction -> WHILE LPAREN expression RPAREN . instruction [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> WHILE LPAREN expression RPAREN . instruction [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 -- On WHILE shift to state 15
+-- On THIS shift to state 17
 -- On SYSO shift to state 64
+-- On NOT shift to state 18
+-- On NEW shift to state 19
+-- On LPAREN shift to state 22
 -- On LBRACE shift to state 69
+-- On INT_CONST shift to state 23
 -- On IF shift to state 70
 -- On IDENT shift to state 74
--- On instruction shift to state 92
--- On block shift to state 87
+-- On BOOL_CONST shift to state 25
+-- On raw_expression shift to state 26
+-- On instruction shift to state 94
+-- On expression shift to state 87
+-- On block shift to state 89
 ## Reductions:
 
 State 64:
 ## Known stack suffix:
 ## SYSO
 ## LR(1) items:
-instruction -> SYSO . LPAREN expression RPAREN SEMICOLON [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> SYSO . LPAREN expression RPAREN SEMICOLON [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 -- On LPAREN shift to state 65
 ## Reductions:
@@ -954,7 +970,7 @@ State 65:
 ## Known stack suffix:
 ## SYSO LPAREN
 ## LR(1) items:
-instruction -> SYSO LPAREN . expression RPAREN SEMICOLON [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> SYSO LPAREN . expression RPAREN SEMICOLON [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 -- On THIS shift to state 17
 -- On NOT shift to state 18
@@ -971,7 +987,7 @@ State 66:
 ## Known stack suffix:
 ## SYSO LPAREN expression
 ## LR(1) items:
-instruction -> SYSO LPAREN expression . RPAREN SEMICOLON [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> SYSO LPAREN expression . RPAREN SEMICOLON [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 raw_expression -> expression . PLUS expression [ TIMES RPAREN PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
 raw_expression -> expression . MINUS expression [ TIMES RPAREN PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
 raw_expression -> expression . TIMES expression [ TIMES RPAREN PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
@@ -999,7 +1015,7 @@ State 67:
 ## Known stack suffix:
 ## SYSO LPAREN expression RPAREN
 ## LR(1) items:
-instruction -> SYSO LPAREN expression RPAREN . SEMICOLON [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> SYSO LPAREN expression RPAREN . SEMICOLON [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 -- On SEMICOLON shift to state 68
 ## Reductions:
@@ -1008,26 +1024,34 @@ State 68:
 ## Known stack suffix:
 ## SYSO LPAREN expression RPAREN SEMICOLON
 ## LR(1) items:
-instruction -> SYSO LPAREN expression RPAREN SEMICOLON . [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> SYSO LPAREN expression RPAREN SEMICOLON . [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 ## Reductions:
--- On WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE
+-- On WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST
 --   reduce production instruction -> SYSO LPAREN expression RPAREN SEMICOLON
 
 State 69:
 ## Known stack suffix:
 ## LBRACE
 ## LR(1) items:
-block -> LBRACE . list(instruction) RBRACE [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+block -> LBRACE . list(instruction) RBRACE [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 -- On WHILE shift to state 15
+-- On THIS shift to state 17
 -- On SYSO shift to state 64
+-- On NOT shift to state 18
+-- On NEW shift to state 19
+-- On LPAREN shift to state 22
 -- On LBRACE shift to state 69
+-- On INT_CONST shift to state 23
 -- On IF shift to state 70
 -- On IDENT shift to state 74
--- On list(instruction) shift to state 88
--- On instruction shift to state 90
--- On block shift to state 87
+-- On BOOL_CONST shift to state 25
+-- On raw_expression shift to state 26
+-- On list(instruction) shift to state 90
+-- On instruction shift to state 92
+-- On expression shift to state 87
+-- On block shift to state 89
 ## Reductions:
 -- On RBRACE
 --   reduce production list(instruction) ->
@@ -1036,8 +1060,8 @@ State 70:
 ## Known stack suffix:
 ## IF
 ## LR(1) items:
-instruction -> IF . LPAREN expression RPAREN instruction ELSE instruction [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
-instruction -> IF . LPAREN expression RPAREN instruction [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> IF . LPAREN expression RPAREN instruction ELSE instruction [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
+instruction -> IF . LPAREN expression RPAREN instruction [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 -- On LPAREN shift to state 71
 ## Reductions:
@@ -1046,8 +1070,8 @@ State 71:
 ## Known stack suffix:
 ## IF LPAREN
 ## LR(1) items:
-instruction -> IF LPAREN . expression RPAREN instruction ELSE instruction [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
-instruction -> IF LPAREN . expression RPAREN instruction [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> IF LPAREN . expression RPAREN instruction ELSE instruction [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
+instruction -> IF LPAREN . expression RPAREN instruction [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 -- On THIS shift to state 17
 -- On NOT shift to state 18
@@ -1064,8 +1088,8 @@ State 72:
 ## Known stack suffix:
 ## IF LPAREN expression
 ## LR(1) items:
-instruction -> IF LPAREN expression . RPAREN instruction ELSE instruction [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
-instruction -> IF LPAREN expression . RPAREN instruction [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> IF LPAREN expression . RPAREN instruction ELSE instruction [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
+instruction -> IF LPAREN expression . RPAREN instruction [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 raw_expression -> expression . PLUS expression [ TIMES RPAREN PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
 raw_expression -> expression . MINUS expression [ TIMES RPAREN PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
 raw_expression -> expression . TIMES expression [ TIMES RPAREN PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
@@ -1093,34 +1117,46 @@ State 73:
 ## Known stack suffix:
 ## IF LPAREN expression RPAREN
 ## LR(1) items:
-instruction -> IF LPAREN expression RPAREN . instruction ELSE instruction [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
-instruction -> IF LPAREN expression RPAREN . instruction [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> IF LPAREN expression RPAREN . instruction ELSE instruction [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
+instruction -> IF LPAREN expression RPAREN . instruction [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 -- On WHILE shift to state 15
+-- On THIS shift to state 17
 -- On SYSO shift to state 64
+-- On NOT shift to state 18
+-- On NEW shift to state 19
+-- On LPAREN shift to state 22
 -- On LBRACE shift to state 69
+-- On INT_CONST shift to state 23
 -- On IF shift to state 70
 -- On IDENT shift to state 74
+-- On BOOL_CONST shift to state 25
+-- On raw_expression shift to state 26
 -- On instruction shift to state 84
--- On block shift to state 87
+-- On expression shift to state 87
+-- On block shift to state 89
 ## Reductions:
 
 State 74:
 ## Known stack suffix:
 ## IDENT
 ## LR(1) items:
-instruction -> IDENT . ASSIGN expression SEMICOLON [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
-instruction -> IDENT . LBRACKET expression RBRACKET ASSIGN expression SEMICOLON [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> IDENT . ASSIGN expression SEMICOLON [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
+instruction -> IDENT . LBRACKET expression RBRACKET ASSIGN expression SEMICOLON [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
+raw_expression -> IDENT . [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
 ## Transitions:
 -- On LBRACKET shift to state 75
 -- On ASSIGN shift to state 81
 ## Reductions:
+-- On TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND
+--   reduce production raw_expression -> IDENT
+** Conflict on LBRACKET
 
 State 75:
 ## Known stack suffix:
 ## IDENT LBRACKET
 ## LR(1) items:
-instruction -> IDENT LBRACKET . expression RBRACKET ASSIGN expression SEMICOLON [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> IDENT LBRACKET . expression RBRACKET ASSIGN expression SEMICOLON [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 -- On THIS shift to state 17
 -- On NOT shift to state 18
@@ -1137,7 +1173,7 @@ State 76:
 ## Known stack suffix:
 ## IDENT LBRACKET expression
 ## LR(1) items:
-instruction -> IDENT LBRACKET expression . RBRACKET ASSIGN expression SEMICOLON [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> IDENT LBRACKET expression . RBRACKET ASSIGN expression SEMICOLON [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 raw_expression -> expression . PLUS expression [ TIMES RBRACKET PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
 raw_expression -> expression . MINUS expression [ TIMES RBRACKET PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
 raw_expression -> expression . TIMES expression [ TIMES RBRACKET PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
@@ -1165,7 +1201,7 @@ State 77:
 ## Known stack suffix:
 ## IDENT LBRACKET expression RBRACKET
 ## LR(1) items:
-instruction -> IDENT LBRACKET expression RBRACKET . ASSIGN expression SEMICOLON [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> IDENT LBRACKET expression RBRACKET . ASSIGN expression SEMICOLON [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 -- On ASSIGN shift to state 78
 ## Reductions:
@@ -1174,7 +1210,7 @@ State 78:
 ## Known stack suffix:
 ## IDENT LBRACKET expression RBRACKET ASSIGN
 ## LR(1) items:
-instruction -> IDENT LBRACKET expression RBRACKET ASSIGN . expression SEMICOLON [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> IDENT LBRACKET expression RBRACKET ASSIGN . expression SEMICOLON [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 -- On THIS shift to state 17
 -- On NOT shift to state 18
@@ -1191,7 +1227,7 @@ State 79:
 ## Known stack suffix:
 ## IDENT LBRACKET expression RBRACKET ASSIGN expression
 ## LR(1) items:
-instruction -> IDENT LBRACKET expression RBRACKET ASSIGN expression . SEMICOLON [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> IDENT LBRACKET expression RBRACKET ASSIGN expression . SEMICOLON [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 raw_expression -> expression . PLUS expression [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
 raw_expression -> expression . MINUS expression [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
 raw_expression -> expression . TIMES expression [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
@@ -1219,17 +1255,17 @@ State 80:
 ## Known stack suffix:
 ## IDENT LBRACKET expression RBRACKET ASSIGN expression SEMICOLON
 ## LR(1) items:
-instruction -> IDENT LBRACKET expression RBRACKET ASSIGN expression SEMICOLON . [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> IDENT LBRACKET expression RBRACKET ASSIGN expression SEMICOLON . [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 ## Reductions:
--- On WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE
+-- On WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST
 --   reduce production instruction -> IDENT LBRACKET expression RBRACKET ASSIGN expression SEMICOLON
 
 State 81:
 ## Known stack suffix:
 ## IDENT ASSIGN
 ## LR(1) items:
-instruction -> IDENT ASSIGN . expression SEMICOLON [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> IDENT ASSIGN . expression SEMICOLON [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 -- On THIS shift to state 17
 -- On NOT shift to state 18
@@ -1246,7 +1282,7 @@ State 82:
 ## Known stack suffix:
 ## IDENT ASSIGN expression
 ## LR(1) items:
-instruction -> IDENT ASSIGN expression . SEMICOLON [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> IDENT ASSIGN expression . SEMICOLON [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 raw_expression -> expression . PLUS expression [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
 raw_expression -> expression . MINUS expression [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
 raw_expression -> expression . TIMES expression [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
@@ -1274,22 +1310,22 @@ State 83:
 ## Known stack suffix:
 ## IDENT ASSIGN expression SEMICOLON
 ## LR(1) items:
-instruction -> IDENT ASSIGN expression SEMICOLON . [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> IDENT ASSIGN expression SEMICOLON . [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 ## Reductions:
--- On WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE
+-- On WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST
 --   reduce production instruction -> IDENT ASSIGN expression SEMICOLON
 
 State 84:
 ## Known stack suffix:
 ## IF LPAREN expression RPAREN instruction
 ## LR(1) items:
-instruction -> IF LPAREN expression RPAREN instruction . ELSE instruction [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
-instruction -> IF LPAREN expression RPAREN instruction . [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> IF LPAREN expression RPAREN instruction . ELSE instruction [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
+instruction -> IF LPAREN expression RPAREN instruction . [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 -- On ELSE shift to state 85
 ## Reductions:
--- On WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE
+-- On WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST
 --   reduce production instruction -> IF LPAREN expression RPAREN instruction
 ** Conflict on ELSE
 
@@ -1297,75 +1333,129 @@ State 85:
 ## Known stack suffix:
 ## IF LPAREN expression RPAREN instruction ELSE
 ## LR(1) items:
-instruction -> IF LPAREN expression RPAREN instruction ELSE . instruction [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> IF LPAREN expression RPAREN instruction ELSE . instruction [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 -- On WHILE shift to state 15
+-- On THIS shift to state 17
 -- On SYSO shift to state 64
+-- On NOT shift to state 18
+-- On NEW shift to state 19
+-- On LPAREN shift to state 22
 -- On LBRACE shift to state 69
+-- On INT_CONST shift to state 23
 -- On IF shift to state 70
 -- On IDENT shift to state 74
+-- On BOOL_CONST shift to state 25
+-- On raw_expression shift to state 26
 -- On instruction shift to state 86
--- On block shift to state 87
+-- On expression shift to state 87
+-- On block shift to state 89
 ## Reductions:
 
 State 86:
 ## Known stack suffix:
 ## IF LPAREN expression RPAREN instruction ELSE instruction
 ## LR(1) items:
-instruction -> IF LPAREN expression RPAREN instruction ELSE instruction . [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> IF LPAREN expression RPAREN instruction ELSE instruction . [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 ## Reductions:
--- On WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE
+-- On WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST
 --   reduce production instruction -> IF LPAREN expression RPAREN instruction ELSE instruction
 
 State 87:
 ## Known stack suffix:
-## block
+## expression
 ## LR(1) items:
-instruction -> block . [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> expression . SEMICOLON [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
+raw_expression -> expression . PLUS expression [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
+raw_expression -> expression . MINUS expression [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
+raw_expression -> expression . TIMES expression [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
+raw_expression -> expression . LT expression [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
+raw_expression -> expression . AND expression [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
+raw_expression -> expression . GT expression [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
+raw_expression -> expression . EGAL expression [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
+raw_expression -> expression . DOT IDENT LPAREN loption(separated_nonempty_list(COMMA,expression)) RPAREN [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
+raw_expression -> expression . LBRACKET expression RBRACKET [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
+raw_expression -> expression . DOT LENGTH [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
 ## Transitions:
+-- On TIMES shift to state 28
+-- On SEMICOLON shift to state 88
+-- On PLUS shift to state 33
+-- On MINUS shift to state 43
+-- On LT shift to state 45
+-- On LBRACKET shift to state 30
+-- On GT shift to state 47
+-- On EGAL shift to state 49
+-- On DOT shift to state 35
+-- On AND shift to state 53
 ## Reductions:
--- On WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE
---   reduce production instruction -> block
 
 State 88:
 ## Known stack suffix:
-## LBRACE list(instruction)
+## expression SEMICOLON
 ## LR(1) items:
-block -> LBRACE list(instruction) . RBRACE [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> expression SEMICOLON . [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
--- On RBRACE shift to state 89
 ## Reductions:
+-- On WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST
+--   reduce production instruction -> expression SEMICOLON
 
 State 89:
 ## Known stack suffix:
-## LBRACE list(instruction) RBRACE
+## block
 ## LR(1) items:
-block -> LBRACE list(instruction) RBRACE . [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> block . [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 ## Reductions:
--- On WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE
---   reduce production block -> LBRACE list(instruction) RBRACE
+-- On WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST
+--   reduce production instruction -> block
 
 State 90:
+## Known stack suffix:
+## LBRACE list(instruction)
+## LR(1) items:
+block -> LBRACE list(instruction) . RBRACE [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
+## Transitions:
+-- On RBRACE shift to state 91
+## Reductions:
+
+State 91:
+## Known stack suffix:
+## LBRACE list(instruction) RBRACE
+## LR(1) items:
+block -> LBRACE list(instruction) RBRACE . [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
+## Transitions:
+## Reductions:
+-- On WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST
+--   reduce production block -> LBRACE list(instruction) RBRACE
+
+State 92:
 ## Known stack suffix:
 ## instruction
 ## LR(1) items:
 list(instruction) -> instruction . list(instruction) [ RETURN RBRACE ]
 ## Transitions:
 -- On WHILE shift to state 15
+-- On THIS shift to state 17
 -- On SYSO shift to state 64
+-- On NOT shift to state 18
+-- On NEW shift to state 19
+-- On LPAREN shift to state 22
 -- On LBRACE shift to state 69
+-- On INT_CONST shift to state 23
 -- On IF shift to state 70
 -- On IDENT shift to state 74
--- On list(instruction) shift to state 91
--- On instruction shift to state 90
--- On block shift to state 87
+-- On BOOL_CONST shift to state 25
+-- On raw_expression shift to state 26
+-- On list(instruction) shift to state 93
+-- On instruction shift to state 92
+-- On expression shift to state 87
+-- On block shift to state 89
 ## Reductions:
 -- On RETURN RBRACE
 --   reduce production list(instruction) ->
 
-State 91:
+State 93:
 ## Known stack suffix:
 ## instruction list(instruction)
 ## LR(1) items:
@@ -1375,35 +1465,35 @@ list(instruction) -> instruction list(instruction) . [ RETURN RBRACE ]
 -- On RETURN RBRACE
 --   reduce production list(instruction) -> instruction list(instruction)
 
-State 92:
+State 94:
 ## Known stack suffix:
 ## WHILE LPAREN expression RPAREN instruction
 ## LR(1) items:
-instruction -> WHILE LPAREN expression RPAREN instruction . [ WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE ]
+instruction -> WHILE LPAREN expression RPAREN instruction . [ WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST ]
 ## Transitions:
 ## Reductions:
--- On WHILE SYSO RETURN RBRACE LBRACE IF IDENT ELSE
+-- On WHILE THIS SYSO RETURN RBRACE NOT NEW LPAREN LBRACE INT_CONST IF IDENT ELSE BOOL_CONST
 --   reduce production instruction -> WHILE LPAREN expression RPAREN instruction
 
-State 93:
+State 95:
 ## Known stack suffix:
 ## CLASS IDENT LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET IDENT RPAREN LBRACE instruction
 ## LR(1) items:
 main_class -> CLASS IDENT LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET IDENT RPAREN LBRACE instruction . RBRACE RBRACE [ EOF CLASS ]
 ## Transitions:
--- On RBRACE shift to state 94
+-- On RBRACE shift to state 96
 ## Reductions:
 
-State 94:
+State 96:
 ## Known stack suffix:
 ## CLASS IDENT LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET IDENT RPAREN LBRACE instruction RBRACE
 ## LR(1) items:
 main_class -> CLASS IDENT LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET IDENT RPAREN LBRACE instruction RBRACE . RBRACE [ EOF CLASS ]
 ## Transitions:
--- On RBRACE shift to state 95
+-- On RBRACE shift to state 97
 ## Reductions:
 
-State 95:
+State 97:
 ## Known stack suffix:
 ## CLASS IDENT LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET IDENT RPAREN LBRACE instruction RBRACE RBRACE
 ## LR(1) items:
@@ -1413,7 +1503,7 @@ main_class -> CLASS IDENT LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET 
 -- On EOF CLASS
 --   reduce production main_class -> CLASS IDENT LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET IDENT RPAREN LBRACE instruction RBRACE RBRACE
 
-State 96:
+State 98:
 ## Known stack suffix:
 ## program
 ## LR(1) items:
@@ -1423,51 +1513,51 @@ program' -> program . [ # ]
 -- On #
 --   accept program
 
-State 97:
+State 99:
 ## Known stack suffix:
 ## main_class
 ## LR(1) items:
 program -> main_class . defs EOF [ # ]
 ## Transitions:
--- On CLASS shift to state 98
--- On list(clas) shift to state 141
--- On defs shift to state 142
--- On clas shift to state 144
+-- On CLASS shift to state 100
+-- On list(clas) shift to state 143
+-- On defs shift to state 144
+-- On clas shift to state 146
 ## Reductions:
 -- On EOF
 --   reduce production list(clas) ->
 
-State 98:
+State 100:
 ## Known stack suffix:
 ## CLASS
 ## LR(1) items:
 clas -> CLASS . IDENT option(preceded(EXTENDS,IDENT)) LBRACE list(pair(typ,terminated(IDENT,SEMICOLON))) list(metho) RBRACE [ EOF CLASS ]
 ## Transitions:
--- On IDENT shift to state 99
+-- On IDENT shift to state 101
 ## Reductions:
 
-State 99:
+State 101:
 ## Known stack suffix:
 ## CLASS IDENT
 ## LR(1) items:
 clas -> CLASS IDENT . option(preceded(EXTENDS,IDENT)) LBRACE list(pair(typ,terminated(IDENT,SEMICOLON))) list(metho) RBRACE [ EOF CLASS ]
 ## Transitions:
--- On EXTENDS shift to state 100
--- On option(preceded(EXTENDS,IDENT)) shift to state 102
+-- On EXTENDS shift to state 102
+-- On option(preceded(EXTENDS,IDENT)) shift to state 104
 ## Reductions:
 -- On LBRACE
 --   reduce production option(preceded(EXTENDS,IDENT)) ->
 
-State 100:
+State 102:
 ## Known stack suffix:
 ## EXTENDS
 ## LR(1) items:
 option(preceded(EXTENDS,IDENT)) -> EXTENDS . IDENT [ LBRACE ]
 ## Transitions:
--- On IDENT shift to state 101
+-- On IDENT shift to state 103
 ## Reductions:
 
-State 101:
+State 103:
 ## Known stack suffix:
 ## EXTENDS IDENT
 ## LR(1) items:
@@ -1477,52 +1567,52 @@ option(preceded(EXTENDS,IDENT)) -> EXTENDS IDENT . [ LBRACE ]
 -- On LBRACE
 --   reduce production option(preceded(EXTENDS,IDENT)) -> EXTENDS IDENT
 
-State 102:
+State 104:
 ## Known stack suffix:
 ## CLASS IDENT option(preceded(EXTENDS,IDENT))
 ## LR(1) items:
 clas -> CLASS IDENT option(preceded(EXTENDS,IDENT)) . LBRACE list(pair(typ,terminated(IDENT,SEMICOLON))) list(metho) RBRACE [ EOF CLASS ]
 ## Transitions:
--- On LBRACE shift to state 103
+-- On LBRACE shift to state 105
 ## Reductions:
 
-State 103:
+State 105:
 ## Known stack suffix:
 ## CLASS IDENT option(preceded(EXTENDS,IDENT)) LBRACE
 ## LR(1) items:
 clas -> CLASS IDENT option(preceded(EXTENDS,IDENT)) LBRACE . list(pair(typ,terminated(IDENT,SEMICOLON))) list(metho) RBRACE [ EOF CLASS ]
 ## Transitions:
--- On INTEGER shift to state 104
--- On IDENT shift to state 107
--- On BOOLEAN shift to state 108
--- On typ shift to state 109
--- On list(pair(typ,terminated(IDENT,SEMICOLON))) shift to state 113
+-- On INTEGER shift to state 106
+-- On IDENT shift to state 109
+-- On BOOLEAN shift to state 110
+-- On typ shift to state 111
+-- On list(pair(typ,terminated(IDENT,SEMICOLON))) shift to state 115
 ## Reductions:
 -- On RBRACE PUBLIC
 --   reduce production list(pair(typ,terminated(IDENT,SEMICOLON))) ->
 
-State 104:
+State 106:
 ## Known stack suffix:
 ## INTEGER
 ## LR(1) items:
 typ -> INTEGER . [ IDENT ]
 typ -> INTEGER . LBRACKET RBRACKET [ IDENT ]
 ## Transitions:
--- On LBRACKET shift to state 105
+-- On LBRACKET shift to state 107
 ## Reductions:
 -- On IDENT
 --   reduce production typ -> INTEGER
 
-State 105:
+State 107:
 ## Known stack suffix:
 ## INTEGER LBRACKET
 ## LR(1) items:
 typ -> INTEGER LBRACKET . RBRACKET [ IDENT ]
 ## Transitions:
--- On RBRACKET shift to state 106
+-- On RBRACKET shift to state 108
 ## Reductions:
 
-State 106:
+State 108:
 ## Known stack suffix:
 ## INTEGER LBRACKET RBRACKET
 ## LR(1) items:
@@ -1532,7 +1622,7 @@ typ -> INTEGER LBRACKET RBRACKET . [ IDENT ]
 -- On IDENT
 --   reduce production typ -> INTEGER LBRACKET RBRACKET
 
-State 107:
+State 109:
 ## Known stack suffix:
 ## IDENT
 ## LR(1) items:
@@ -1542,7 +1632,7 @@ typ -> IDENT . [ IDENT ]
 -- On IDENT
 --   reduce production typ -> IDENT
 
-State 108:
+State 110:
 ## Known stack suffix:
 ## BOOLEAN
 ## LR(1) items:
@@ -1552,40 +1642,40 @@ typ -> BOOLEAN . [ IDENT ]
 -- On IDENT
 --   reduce production typ -> BOOLEAN
 
-State 109:
+State 111:
 ## Known stack suffix:
 ## typ
 ## LR(1) items:
 list(pair(typ,terminated(IDENT,SEMICOLON))) -> typ . IDENT SEMICOLON list(pair(typ,terminated(IDENT,SEMICOLON))) [ RBRACE PUBLIC ]
 ## Transitions:
--- On IDENT shift to state 110
+-- On IDENT shift to state 112
 ## Reductions:
 
-State 110:
+State 112:
 ## Known stack suffix:
 ## typ IDENT
 ## LR(1) items:
 list(pair(typ,terminated(IDENT,SEMICOLON))) -> typ IDENT . SEMICOLON list(pair(typ,terminated(IDENT,SEMICOLON))) [ RBRACE PUBLIC ]
 ## Transitions:
--- On SEMICOLON shift to state 111
+-- On SEMICOLON shift to state 113
 ## Reductions:
 
-State 111:
+State 113:
 ## Known stack suffix:
 ## typ IDENT SEMICOLON
 ## LR(1) items:
 list(pair(typ,terminated(IDENT,SEMICOLON))) -> typ IDENT SEMICOLON . list(pair(typ,terminated(IDENT,SEMICOLON))) [ RBRACE PUBLIC ]
 ## Transitions:
--- On INTEGER shift to state 104
--- On IDENT shift to state 107
--- On BOOLEAN shift to state 108
--- On typ shift to state 109
--- On list(pair(typ,terminated(IDENT,SEMICOLON))) shift to state 112
+-- On INTEGER shift to state 106
+-- On IDENT shift to state 109
+-- On BOOLEAN shift to state 110
+-- On typ shift to state 111
+-- On list(pair(typ,terminated(IDENT,SEMICOLON))) shift to state 114
 ## Reductions:
 -- On RBRACE PUBLIC
 --   reduce production list(pair(typ,terminated(IDENT,SEMICOLON))) ->
 
-State 112:
+State 114:
 ## Known stack suffix:
 ## typ IDENT SEMICOLON list(pair(typ,terminated(IDENT,SEMICOLON)))
 ## LR(1) items:
@@ -1595,101 +1685,101 @@ list(pair(typ,terminated(IDENT,SEMICOLON))) -> typ IDENT SEMICOLON list(pair(typ
 -- On RBRACE PUBLIC
 --   reduce production list(pair(typ,terminated(IDENT,SEMICOLON))) -> typ IDENT SEMICOLON list(pair(typ,terminated(IDENT,SEMICOLON)))
 
-State 113:
+State 115:
 ## Known stack suffix:
 ## CLASS IDENT option(preceded(EXTENDS,IDENT)) LBRACE list(pair(typ,terminated(IDENT,SEMICOLON)))
 ## LR(1) items:
 clas -> CLASS IDENT option(preceded(EXTENDS,IDENT)) LBRACE list(pair(typ,terminated(IDENT,SEMICOLON))) . list(metho) RBRACE [ EOF CLASS ]
 ## Transitions:
--- On PUBLIC shift to state 114
--- On metho shift to state 137
--- On list(metho) shift to state 139
+-- On PUBLIC shift to state 116
+-- On metho shift to state 139
+-- On list(metho) shift to state 141
 ## Reductions:
 -- On RBRACE
 --   reduce production list(metho) ->
 
-State 114:
+State 116:
 ## Known stack suffix:
 ## PUBLIC
 ## LR(1) items:
 metho -> PUBLIC . typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE declarations_and_statements RETURN expression SEMICOLON RBRACE [ RBRACE PUBLIC ]
 ## Transitions:
--- On INTEGER shift to state 104
--- On IDENT shift to state 107
--- On BOOLEAN shift to state 108
--- On typ shift to state 115
+-- On INTEGER shift to state 106
+-- On IDENT shift to state 109
+-- On BOOLEAN shift to state 110
+-- On typ shift to state 117
 ## Reductions:
 
-State 115:
+State 117:
 ## Known stack suffix:
 ## PUBLIC typ
 ## LR(1) items:
 metho -> PUBLIC typ . IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE declarations_and_statements RETURN expression SEMICOLON RBRACE [ RBRACE PUBLIC ]
 ## Transitions:
--- On IDENT shift to state 116
+-- On IDENT shift to state 118
 ## Reductions:
 
-State 116:
+State 118:
 ## Known stack suffix:
 ## PUBLIC typ IDENT
 ## LR(1) items:
 metho -> PUBLIC typ IDENT . LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE declarations_and_statements RETURN expression SEMICOLON RBRACE [ RBRACE PUBLIC ]
 ## Transitions:
--- On LPAREN shift to state 117
+-- On LPAREN shift to state 119
 ## Reductions:
 
-State 117:
+State 119:
 ## Known stack suffix:
 ## PUBLIC typ IDENT LPAREN
 ## LR(1) items:
 metho -> PUBLIC typ IDENT LPAREN . loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE declarations_and_statements RETURN expression SEMICOLON RBRACE [ RBRACE PUBLIC ]
 ## Transitions:
--- On INTEGER shift to state 104
--- On IDENT shift to state 107
--- On BOOLEAN shift to state 108
--- On typ shift to state 118
--- On separated_nonempty_list(COMMA,pair(typ,IDENT)) shift to state 122
--- On loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) shift to state 123
+-- On INTEGER shift to state 106
+-- On IDENT shift to state 109
+-- On BOOLEAN shift to state 110
+-- On typ shift to state 120
+-- On separated_nonempty_list(COMMA,pair(typ,IDENT)) shift to state 124
+-- On loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) shift to state 125
 ## Reductions:
 -- On RPAREN
 --   reduce production loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) ->
 
-State 118:
+State 120:
 ## Known stack suffix:
 ## typ
 ## LR(1) items:
 separated_nonempty_list(COMMA,pair(typ,IDENT)) -> typ . IDENT [ RPAREN ]
 separated_nonempty_list(COMMA,pair(typ,IDENT)) -> typ . IDENT COMMA separated_nonempty_list(COMMA,pair(typ,IDENT)) [ RPAREN ]
 ## Transitions:
--- On IDENT shift to state 119
+-- On IDENT shift to state 121
 ## Reductions:
 
-State 119:
+State 121:
 ## Known stack suffix:
 ## typ IDENT
 ## LR(1) items:
 separated_nonempty_list(COMMA,pair(typ,IDENT)) -> typ IDENT . [ RPAREN ]
 separated_nonempty_list(COMMA,pair(typ,IDENT)) -> typ IDENT . COMMA separated_nonempty_list(COMMA,pair(typ,IDENT)) [ RPAREN ]
 ## Transitions:
--- On COMMA shift to state 120
+-- On COMMA shift to state 122
 ## Reductions:
 -- On RPAREN
 --   reduce production separated_nonempty_list(COMMA,pair(typ,IDENT)) -> typ IDENT
 
-State 120:
+State 122:
 ## Known stack suffix:
 ## typ IDENT COMMA
 ## LR(1) items:
 separated_nonempty_list(COMMA,pair(typ,IDENT)) -> typ IDENT COMMA . separated_nonempty_list(COMMA,pair(typ,IDENT)) [ RPAREN ]
 ## Transitions:
--- On INTEGER shift to state 104
--- On IDENT shift to state 107
--- On BOOLEAN shift to state 108
--- On typ shift to state 118
--- On separated_nonempty_list(COMMA,pair(typ,IDENT)) shift to state 121
+-- On INTEGER shift to state 106
+-- On IDENT shift to state 109
+-- On BOOLEAN shift to state 110
+-- On typ shift to state 120
+-- On separated_nonempty_list(COMMA,pair(typ,IDENT)) shift to state 123
 ## Reductions:
 
-State 121:
+State 123:
 ## Known stack suffix:
 ## typ IDENT COMMA separated_nonempty_list(COMMA,pair(typ,IDENT))
 ## LR(1) items:
@@ -1699,7 +1789,7 @@ separated_nonempty_list(COMMA,pair(typ,IDENT)) -> typ IDENT COMMA separated_none
 -- On RPAREN
 --   reduce production separated_nonempty_list(COMMA,pair(typ,IDENT)) -> typ IDENT COMMA separated_nonempty_list(COMMA,pair(typ,IDENT))
 
-State 122:
+State 124:
 ## Known stack suffix:
 ## separated_nonempty_list(COMMA,pair(typ,IDENT))
 ## LR(1) items:
@@ -1709,101 +1799,121 @@ loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) -> separated_nonempty_li
 -- On RPAREN
 --   reduce production loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) -> separated_nonempty_list(COMMA,pair(typ,IDENT))
 
-State 123:
+State 125:
 ## Known stack suffix:
 ## PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT)))
 ## LR(1) items:
 metho -> PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) . RPAREN LBRACE declarations_and_statements RETURN expression SEMICOLON RBRACE [ RBRACE PUBLIC ]
 ## Transitions:
--- On RPAREN shift to state 124
+-- On RPAREN shift to state 126
 ## Reductions:
 
-State 124:
+State 126:
 ## Known stack suffix:
 ## PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN
 ## LR(1) items:
 metho -> PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN . LBRACE declarations_and_statements RETURN expression SEMICOLON RBRACE [ RBRACE PUBLIC ]
 ## Transitions:
--- On LBRACE shift to state 125
+-- On LBRACE shift to state 127
 ## Reductions:
 
-State 125:
+State 127:
 ## Known stack suffix:
 ## PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE
 ## LR(1) items:
 metho -> PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE . declarations_and_statements RETURN expression SEMICOLON RBRACE [ RBRACE PUBLIC ]
 ## Transitions:
 -- On WHILE shift to state 15
+-- On THIS shift to state 17
 -- On SYSO shift to state 64
+-- On NOT shift to state 18
+-- On NEW shift to state 19
+-- On LPAREN shift to state 22
 -- On LBRACE shift to state 69
--- On INTEGER shift to state 104
+-- On INT_CONST shift to state 23
+-- On INTEGER shift to state 106
 -- On IF shift to state 70
--- On IDENT shift to state 126
--- On BOOLEAN shift to state 108
--- On typ shift to state 127
--- On list(instruction) shift to state 130
--- On instruction shift to state 90
--- On declarations_and_statements shift to state 132
--- On block shift to state 87
+-- On IDENT shift to state 128
+-- On BOOL_CONST shift to state 25
+-- On BOOLEAN shift to state 110
+-- On typ shift to state 129
+-- On raw_expression shift to state 26
+-- On list(instruction) shift to state 132
+-- On instruction shift to state 92
+-- On expression shift to state 87
+-- On declarations_and_statements shift to state 134
+-- On block shift to state 89
 ## Reductions:
 -- On RETURN
 --   reduce production list(instruction) ->
 
-State 126:
+State 128:
 ## Known stack suffix:
 ## IDENT
 ## LR(1) items:
-instruction -> IDENT . ASSIGN expression SEMICOLON [ WHILE SYSO RETURN LBRACE IF IDENT ]
-instruction -> IDENT . LBRACKET expression RBRACKET ASSIGN expression SEMICOLON [ WHILE SYSO RETURN LBRACE IF IDENT ]
+instruction -> IDENT . ASSIGN expression SEMICOLON [ WHILE THIS SYSO RETURN NOT NEW LPAREN LBRACE INT_CONST IF IDENT BOOL_CONST ]
+instruction -> IDENT . LBRACKET expression RBRACKET ASSIGN expression SEMICOLON [ WHILE THIS SYSO RETURN NOT NEW LPAREN LBRACE INT_CONST IF IDENT BOOL_CONST ]
+raw_expression -> IDENT . [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
 typ -> IDENT . [ IDENT ]
 ## Transitions:
 -- On LBRACKET shift to state 75
 -- On ASSIGN shift to state 81
 ## Reductions:
+-- On TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND
+--   reduce production raw_expression -> IDENT
 -- On IDENT
 --   reduce production typ -> IDENT
+** Conflict on LBRACKET
 
-State 127:
+State 129:
 ## Known stack suffix:
 ## typ
 ## LR(1) items:
 declarations_and_statements -> typ . IDENT SEMICOLON declarations_and_statements [ RETURN ]
 ## Transitions:
--- On IDENT shift to state 128
+-- On IDENT shift to state 130
 ## Reductions:
 
-State 128:
+State 130:
 ## Known stack suffix:
 ## typ IDENT
 ## LR(1) items:
 declarations_and_statements -> typ IDENT . SEMICOLON declarations_and_statements [ RETURN ]
 ## Transitions:
--- On SEMICOLON shift to state 129
+-- On SEMICOLON shift to state 131
 ## Reductions:
 
-State 129:
+State 131:
 ## Known stack suffix:
 ## typ IDENT SEMICOLON
 ## LR(1) items:
 declarations_and_statements -> typ IDENT SEMICOLON . declarations_and_statements [ RETURN ]
 ## Transitions:
 -- On WHILE shift to state 15
+-- On THIS shift to state 17
 -- On SYSO shift to state 64
+-- On NOT shift to state 18
+-- On NEW shift to state 19
+-- On LPAREN shift to state 22
 -- On LBRACE shift to state 69
--- On INTEGER shift to state 104
+-- On INT_CONST shift to state 23
+-- On INTEGER shift to state 106
 -- On IF shift to state 70
--- On IDENT shift to state 126
--- On BOOLEAN shift to state 108
--- On typ shift to state 127
--- On list(instruction) shift to state 130
--- On instruction shift to state 90
--- On declarations_and_statements shift to state 131
--- On block shift to state 87
+-- On IDENT shift to state 128
+-- On BOOL_CONST shift to state 25
+-- On BOOLEAN shift to state 110
+-- On typ shift to state 129
+-- On raw_expression shift to state 26
+-- On list(instruction) shift to state 132
+-- On instruction shift to state 92
+-- On expression shift to state 87
+-- On declarations_and_statements shift to state 133
+-- On block shift to state 89
 ## Reductions:
 -- On RETURN
 --   reduce production list(instruction) ->
 
-State 130:
+State 132:
 ## Known stack suffix:
 ## list(instruction)
 ## LR(1) items:
@@ -1813,7 +1923,7 @@ declarations_and_statements -> list(instruction) . [ RETURN ]
 -- On RETURN
 --   reduce production declarations_and_statements -> list(instruction)
 
-State 131:
+State 133:
 ## Known stack suffix:
 ## typ IDENT SEMICOLON declarations_and_statements
 ## LR(1) items:
@@ -1823,16 +1933,16 @@ declarations_and_statements -> typ IDENT SEMICOLON declarations_and_statements .
 -- On RETURN
 --   reduce production declarations_and_statements -> typ IDENT SEMICOLON declarations_and_statements
 
-State 132:
+State 134:
 ## Known stack suffix:
 ## PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE declarations_and_statements
 ## LR(1) items:
 metho -> PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE declarations_and_statements . RETURN expression SEMICOLON RBRACE [ RBRACE PUBLIC ]
 ## Transitions:
--- On RETURN shift to state 133
+-- On RETURN shift to state 135
 ## Reductions:
 
-State 133:
+State 135:
 ## Known stack suffix:
 ## PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE declarations_and_statements RETURN
 ## LR(1) items:
@@ -1846,10 +1956,10 @@ metho -> PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,
 -- On IDENT shift to state 24
 -- On BOOL_CONST shift to state 25
 -- On raw_expression shift to state 26
--- On expression shift to state 134
+-- On expression shift to state 136
 ## Reductions:
 
-State 134:
+State 136:
 ## Known stack suffix:
 ## PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE declarations_and_statements RETURN expression
 ## LR(1) items:
@@ -1866,7 +1976,7 @@ raw_expression -> expression . LBRACKET expression RBRACKET [ TIMES SEMICOLON PL
 raw_expression -> expression . DOT LENGTH [ TIMES SEMICOLON PLUS MINUS LT LBRACKET GT EGAL DOT AND ]
 ## Transitions:
 -- On TIMES shift to state 28
--- On SEMICOLON shift to state 135
+-- On SEMICOLON shift to state 137
 -- On PLUS shift to state 33
 -- On MINUS shift to state 43
 -- On LT shift to state 45
@@ -1877,16 +1987,16 @@ raw_expression -> expression . DOT LENGTH [ TIMES SEMICOLON PLUS MINUS LT LBRACK
 -- On AND shift to state 53
 ## Reductions:
 
-State 135:
+State 137:
 ## Known stack suffix:
 ## PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE declarations_and_statements RETURN expression SEMICOLON
 ## LR(1) items:
 metho -> PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE declarations_and_statements RETURN expression SEMICOLON . RBRACE [ RBRACE PUBLIC ]
 ## Transitions:
--- On RBRACE shift to state 136
+-- On RBRACE shift to state 138
 ## Reductions:
 
-State 136:
+State 138:
 ## Known stack suffix:
 ## PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE declarations_and_statements RETURN expression SEMICOLON RBRACE
 ## LR(1) items:
@@ -1896,20 +2006,20 @@ metho -> PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,
 -- On RBRACE PUBLIC
 --   reduce production metho -> PUBLIC typ IDENT LPAREN loption(separated_nonempty_list(COMMA,pair(typ,IDENT))) RPAREN LBRACE declarations_and_statements RETURN expression SEMICOLON RBRACE
 
-State 137:
+State 139:
 ## Known stack suffix:
 ## metho
 ## LR(1) items:
 list(metho) -> metho . list(metho) [ RBRACE ]
 ## Transitions:
--- On PUBLIC shift to state 114
--- On metho shift to state 137
--- On list(metho) shift to state 138
+-- On PUBLIC shift to state 116
+-- On metho shift to state 139
+-- On list(metho) shift to state 140
 ## Reductions:
 -- On RBRACE
 --   reduce production list(metho) ->
 
-State 138:
+State 140:
 ## Known stack suffix:
 ## metho list(metho)
 ## LR(1) items:
@@ -1919,16 +2029,16 @@ list(metho) -> metho list(metho) . [ RBRACE ]
 -- On RBRACE
 --   reduce production list(metho) -> metho list(metho)
 
-State 139:
+State 141:
 ## Known stack suffix:
 ## CLASS IDENT option(preceded(EXTENDS,IDENT)) LBRACE list(pair(typ,terminated(IDENT,SEMICOLON))) list(metho)
 ## LR(1) items:
 clas -> CLASS IDENT option(preceded(EXTENDS,IDENT)) LBRACE list(pair(typ,terminated(IDENT,SEMICOLON))) list(metho) . RBRACE [ EOF CLASS ]
 ## Transitions:
--- On RBRACE shift to state 140
+-- On RBRACE shift to state 142
 ## Reductions:
 
-State 140:
+State 142:
 ## Known stack suffix:
 ## CLASS IDENT option(preceded(EXTENDS,IDENT)) LBRACE list(pair(typ,terminated(IDENT,SEMICOLON))) list(metho) RBRACE
 ## LR(1) items:
@@ -1938,7 +2048,7 @@ clas -> CLASS IDENT option(preceded(EXTENDS,IDENT)) LBRACE list(pair(typ,termina
 -- On EOF CLASS
 --   reduce production clas -> CLASS IDENT option(preceded(EXTENDS,IDENT)) LBRACE list(pair(typ,terminated(IDENT,SEMICOLON))) list(metho) RBRACE
 
-State 141:
+State 143:
 ## Known stack suffix:
 ## list(clas)
 ## LR(1) items:
@@ -1948,16 +2058,16 @@ defs -> list(clas) . [ EOF ]
 -- On EOF
 --   reduce production defs -> list(clas)
 
-State 142:
+State 144:
 ## Known stack suffix:
 ## main_class defs
 ## LR(1) items:
 program -> main_class defs . EOF [ # ]
 ## Transitions:
--- On EOF shift to state 143
+-- On EOF shift to state 145
 ## Reductions:
 
-State 143:
+State 145:
 ## Known stack suffix:
 ## main_class defs EOF
 ## LR(1) items:
@@ -1967,20 +2077,20 @@ program -> main_class defs EOF . [ # ]
 -- On #
 --   reduce production program -> main_class defs EOF
 
-State 144:
+State 146:
 ## Known stack suffix:
 ## clas
 ## LR(1) items:
 list(clas) -> clas . list(clas) [ EOF ]
 ## Transitions:
--- On CLASS shift to state 98
--- On list(clas) shift to state 145
--- On clas shift to state 144
+-- On CLASS shift to state 100
+-- On list(clas) shift to state 147
+-- On clas shift to state 146
 ## Reductions:
 -- On EOF
 --   reduce production list(clas) ->
 
-State 145:
+State 147:
 ## Known stack suffix:
 ## clas list(clas)
 ## LR(1) items:

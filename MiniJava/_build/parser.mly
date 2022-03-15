@@ -52,6 +52,25 @@ main_class:
    RBRACE
    { (c, a, i) }
 
+new_main:
+    NEW
+    classIdentifier = IDENT
+    LPAREN RPAREN DOT
+    methodIdentifier = IDENT
+    LPAREN RPAREN SEMICOLON
+    { (classIdentifier, methodIdentifier) }
+
+/*main_class:*/
+/*| CLASS c = IDENT*/
+/*   LBRACE*/
+/*   PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET a = IDENT RPAREN*/
+/*   LBRACE*/
+/*   d = list_var_declaration*/
+/*   i = instruction*/
+/*   RBRACE*/
+/*   RBRACE*/
+/*   { (c, a,d, i) }*/
+
 defs:
 | c = list(clas)
    { c }
@@ -179,6 +198,9 @@ instruction:
 
 | WHILE LPAREN c = expression RPAREN i = instruction
    { IWhile (c, i) }
+
+| e = expression SEMICOLON
+    {IExp (e)}
 
 block:
 | LBRACE is = list(instruction) RBRACE
