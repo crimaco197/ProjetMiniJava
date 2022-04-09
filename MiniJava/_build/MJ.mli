@@ -31,6 +31,7 @@ and binop = LMJ.binop =
 and unop = LMJ.unop =
   | UOpNot
   | UOpPP
+  | UOpPPPre
 
 and instruction =
   | IBlock of instruction list

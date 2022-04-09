@@ -8,14 +8,17 @@ class Main0 {
   public int main0() {
     int counter;
     int counter2;
+    int counter3;
     counter = 0;
     counter++;
     counter2 = counter++;
     System.out.println(counter);
     System.out.println(counter2);
-    counter++;
+    counter3 = ++counter;
     System.out.println(counter);
+    System.out.println(counter3);
     System.out.println(counter++);
+    System.out.println(++counter);
     return 0;
   }
 }*/
@@ -35,14 +38,17 @@ void* (*Main0_vtable[])() = { Main0_main0 };
 void* Main0_main0(struct Main0* this) {
   int counter;
   int counter2;
+  int counter3;
   counter = 0;
   (counter)++;
   counter2 = (counter)++;
   printf("%d\n", counter);
   printf("%d\n", counter2);
-  (counter)++;
+  counter3 = ++(counter);
   printf("%d\n", counter);
+  printf("%d\n", counter3);
   printf("%d\n", (counter)++);
+  printf("%d\n", ++(counter));
   return (void*)(0);
 }
 int main(int argc, char *argv[]) {

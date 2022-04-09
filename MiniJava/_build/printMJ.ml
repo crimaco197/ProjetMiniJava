@@ -79,6 +79,9 @@ and expr2 out = function
   | EUnOp (UOpPP, e) ->
        fprintf out "%a++"
          expr2 e
+  | EUnOp (UOpPPPre, e) ->
+     fprintf out "++%a"
+       expr2 e
   | e ->
      expr1 out e
 

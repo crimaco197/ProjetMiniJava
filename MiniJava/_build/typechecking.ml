@@ -135,6 +135,7 @@ and typecheck_expression (cenv : class_env) (venv : variable_env) (vinit : S.t)
         match op with
         | UOpNot -> TypBool, TypBool
         | UOpPP -> TypInt, TypInt
+        | UOpPPPre -> TypInt, TypInt
       in
       typecheck_expression_expecting cenv venv vinit instanceof expected e;
       returned

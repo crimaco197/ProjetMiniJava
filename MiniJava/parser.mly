@@ -204,6 +204,9 @@ raw_expression:
 | e = expression PP
    { EUnOp (UOpPP, e) }
 
+| PP e = expression
+   { EUnOp (UOpPPPre, e) }
+
 %inline binop:
 | PLUS  { OpAdd }
 | MINUS { OpSub }
