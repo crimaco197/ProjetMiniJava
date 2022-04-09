@@ -76,6 +76,9 @@ and expr2 out = function
   | EUnOp (UOpNot, e) ->
      fprintf out "!%a"
        expr2 e
+  | EUnOp (UOpPP, e) ->
+       fprintf out "%a++"
+         expr2 e
   | e ->
      expr1 out e
 

@@ -15,6 +15,7 @@ type token =
   | RBRACKET
   | RBRACE
   | PUBLIC
+  | PP
   | PLUS
   | NOT
   | NEW

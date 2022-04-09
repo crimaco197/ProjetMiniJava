@@ -134,12 +134,13 @@ and typecheck_expression (cenv : class_env) (venv : variable_env) (vinit : S.t)
       let expected, returned =
         match op with
         | UOpNot -> TypBool, TypBool
+        | UOpPP -> TypInt, TypInt
       in
       typecheck_expression_expecting cenv venv vinit instanceof expected e;
       returned
   (** TERMINAR - agregar un else para que retorne el tipo bool*)
 
-  | EBinOp (opEgal, e1, e2) ->
+  | EBinOp (OpEgal, e1, e2) ->
       let t1 = typecheck_expression cenv venv vinit instanceof e1 in
       typecheck_expression_expecting cenv venv vinit instanceof t1 e2;
       TypBool

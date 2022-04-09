@@ -68,6 +68,8 @@ let print_constant out = function
 let print_unop out = function
   | UOpNot ->
      fprintf out "UOpNot"
+  | UOpPP ->
+       fprintf out "UOpPP"
 
 (** [print_binop out op] prints the binary operator [op] on the output channel [out]. *)
 let print_binop out = function

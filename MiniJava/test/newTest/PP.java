@@ -1,12 +1,20 @@
 class PP {
     public static void main(String[] a) {
-        {
-            if (2 < 3) {
-                System.out.println(2);
-            }
-            System.out.println(2);
-            System.out.println(2);
-            System.out.println(2);
-        }
+
+        int counter;
+        int counter2;
+        counter = 0;
+        counter++;
+        counter2 = counter++;
+        System.out.println(counter);
+        System.out.println(counter2);
+        counter++;
+        System.out.println(counter);
+        System.out.println(counter++);
+
+        //        System.out.println(counter++);
+//        System.out.println(++counter);
+
+
     }
 }

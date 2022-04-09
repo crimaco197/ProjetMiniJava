@@ -8,7 +8,7 @@
 %token INTEGER BOOLEAN
 %token <string Location.t> IDENT
 %token CLASS PUBLIC STATIC VOID MAIN STRING EXTENDS RETURN
-%token PLUS MINUS TIMES NOT LT AND GT EGAL
+%token PP PLUS MINUS TIMES NOT LT AND GT EGAL
 %token COMMA SEMICOLON
 %token ASSIGN
 %token LPAREN RPAREN LBRACKET RBRACKET LBRACE RBRACE
@@ -22,6 +22,7 @@
 %left PLUS MINUS
 %left TIMES
 %nonassoc NOT
+%nonassoc PP
 %nonassoc DOT LBRACKET
 
 %start program
@@ -33,12 +34,20 @@
 program:
 | m = main_class d = defs EOF
    {
-     let c, a, i = m in
+     let c, a, clas = m in
+     let e1 = EObjectAlloc (Location.make $startpos $endpos "Main0") in
+     let e2 = EMethodCall ( (Location.make $startpos $endpos e1) , Location.make $startpos $endpos "main0" , []) in
+     let e3 = Location.make $startpos $endpos e2 in
+     let j = IExp (e3) in
+
+     let d2 = clas :: d in
+
+     let defMain = [] in
      {
        name = c;
-       defs = d;
+       defs = d2;
        main_args = a;
-       main = i
+       main = j
      }
    }
 
@@ -47,10 +56,35 @@ main_class:
    LBRACE
    PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET a = IDENT RPAREN
    LBRACE
-   i = instruction
+   ds = declarations_and_statements
    RBRACE
    RBRACE
-   { (c, a, i) }
+   {
+        let d, s = fst ds, snd ds in
+        let name = Location.make $startpos $endpos "main0" in
+        let nameClass = Location.make $startpos $endpos "Main0" in
+        let t = TypInt in
+        let e = (Location.make $startpos $endpos (EConst (ConstInt (Int32.of_int 0)))) in
+        let m = [ name,
+                     {
+                       formals = swap [];
+                       result  = t;
+                       locals  = d;
+                       body    = s;
+                       return  = e;
+                     }
+                ] in
+
+        c, a,
+        (
+            nameClass,
+            {
+              extends = None;
+              attributes = swap [];
+              methods = m;
+            }
+        )
+   }
 
 new_main:
     NEW
@@ -65,11 +99,10 @@ new_main:
 /*   LBRACE*/
 /*   PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET a = IDENT RPAREN*/
 /*   LBRACE*/
-/*   d = list_var_declaration*/
 /*   i = instruction*/
 /*   RBRACE*/
 /*   RBRACE*/
-/*   { (c, a,d, i) }*/
+/*   { (c, a, i) }*/
 
 defs:
 | c = list(clas)
@@ -167,6 +200,9 @@ raw_expression:
 
 | NOT e = expression
    { EUnOp (UOpNot, e) }
+
+| e = expression PP
+   { EUnOp (UOpPP, e) }
 
 %inline binop:
 | PLUS  { OpAdd }
