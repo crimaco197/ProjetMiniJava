@@ -31,6 +31,7 @@ type token =
   | IF
   | IDENT of (string Location.t)
   | GT
+  | FOR
   | EXTENDS
   | EOF
   | ELSE

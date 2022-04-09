@@ -1,5 +1,5 @@
 
-** Conflict (shift/reduce) in state 101.
+** Conflict (shift/reduce) in state 109.
 ** Token involved: LBRACKET
 ** This state is reached from program after reading:
 
@@ -19,12 +19,12 @@ main_class defs EOF
                                                                                                                                                                                                         instruction list(instruction) 
                                                                                                                                                                                                         (?)
 
-** In state 101, looking ahead at LBRACKET, shifting is permitted
+** In state 109, looking ahead at LBRACKET, shifting is permitted
 ** because of the following sub-derivation:
 
 IDENT . LBRACKET expression RBRACKET ASSIGN expression SEMICOLON 
 
-** In state 101, looking ahead at LBRACKET, reducing production
+** In state 109, looking ahead at LBRACKET, reducing production
 ** raw_expression -> IDENT
 ** is permitted because of the following sub-derivation:
 
@@ -34,7 +34,7 @@ expression LBRACKET expression RBRACKET // lookahead token appears
 raw_expression // lookahead token is inherited
 IDENT . 
 
-** Conflict (shift/reduce) in state 87.
+** Conflict (shift/reduce) in state 98.
 ** Token involved: ELSE
 ** This state is reached from program after reading:
 
@@ -54,13 +54,13 @@ main_class defs EOF
                                                                                                                                                                                                         instruction list(instruction) 
                                                                                                                                                                                                         (?)
 
-** In state 87, looking ahead at ELSE, shifting is permitted
+** In state 98, looking ahead at ELSE, shifting is permitted
 ** because of the following sub-derivation:
 
 IF LPAREN expression RPAREN instruction ELSE instruction 
                             IF LPAREN expression RPAREN instruction . ELSE instruction 
 
-** In state 87, looking ahead at ELSE, reducing production
+** In state 98, looking ahead at ELSE, reducing production
 ** instruction -> IF LPAREN expression RPAREN instruction
 ** is permitted because of the following sub-derivation:
 

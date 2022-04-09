@@ -233,6 +233,10 @@ let rec typecheck_instruction (cenv : class_env) (venv : variable_env) (vinit : 
     typecheck_expression_expecting cenv venv vinit instanceof TypBool cond;
     typecheck_instruction cenv venv vinit instanceof ibody
 
+  | IFor (ins1, exp2, exp3, iB) ->
+      typecheck_expression_expecting cenv venv vinit instanceof TypBool exp2;
+      typecheck_instruction cenv venv vinit instanceof iB
+
   | ISyso e ->
      typecheck_expression_expecting cenv venv vinit instanceof TypInt e;
      vinit

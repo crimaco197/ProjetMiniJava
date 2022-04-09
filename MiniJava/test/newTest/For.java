@@ -1,21 +1,15 @@
 class For {
     public static void main(String[] a) {
-        {
-            for (int i = 0; i < 2; i++) {
-                System.out.println(i>3);
-            }
+        int i=0;
+        for (System.out.println(1000); i < 2; i++) {
+            System.out.println(i);
+        }
+
+        System.out.println(i);
+
+        for (i=20; i < 30; i++) {
+            System.out.println(++i);
         }
     }
 }
-
-/**
-class Fac {
-    public int computeFac(int num) {
-        int numAux;
-        if (num < 1) numAux = 1;
-        else numAux = num * (this.computeFac(num-1));
-        return numAux;
-    }
-}
- */
 

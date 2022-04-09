@@ -38,6 +38,7 @@ and instruction =
   | IIf of expression * instruction * instruction
   | If of expression * instruction
   | IWhile of expression * instruction
+  | IFor of instruction * expression * expression * instruction
   | ISyso of expression
   | ISetVar of identifier * expression
   | IArraySet of identifier * expression * expression
